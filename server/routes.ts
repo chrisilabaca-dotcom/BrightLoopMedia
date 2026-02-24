@@ -68,6 +68,16 @@ export function registerRoutes(app: Express) {
         res.send(sitemap);
     });
 
+    // --- Debug Endpoint ---
+    app.get("/api/debug", (req, res) => {
+        res.json({
+            hasGeminiKey: !!process.env.GEMINI_API_KEY,
+            keyLength: process.env.GEMINI_API_KEY?.length || 0,
+            hasResendKey: !!process.env.RESEND_API_KEY,
+            nodeEnv: process.env.NODE_ENV
+        });
+    });
+
     // --- The Lead Pipeline: "The Holy Trinity" ---
     // 1. Zod Validation & DB Insert
     // 2. Google Sheets Append
