@@ -1,7 +1,7 @@
 import { useRoute, useLocation } from "wouter";
 import { siteData } from "../content/site";
 import { SEO } from "../components/ui/SEO";
-import { ArrowLeft, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Zap } from "lucide-react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -22,6 +22,11 @@ export function Service() {
         setLocation("/");
         return null;
     }
+
+    const validServices = siteData.services.filter(s => s.id !== "helloflint");
+    const currentIndex = validServices.findIndex(s => s.id === params.id);
+    const prevService = validServices[(currentIndex - 1 + validServices.length) % validServices.length];
+    const nextService = validServices[(currentIndex + 1) % validServices.length];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -176,6 +181,25 @@ export function Service() {
                         </div>
                     </div>
                 )}
+
+                {/* Service Navigation */}
+                <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10 pt-16 hero-text">
+                    <button onClick={() => setLocation(`/services/${prevService.id}`)} className="group flex flex-col items-start gap-2 hover:bg-white/5 p-6 rounded-3xl transition-colors w-full sm:w-1/2 text-left border border-transparent hover:border-white/10">
+                        <span className="text-sm font-mono text-white/50 tracking-widest uppercase flex items-center gap-2">
+                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                            Previous Protocol
+                        </span>
+                        <span className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">{prevService.title}</span>
+                    </button>
+
+                    <button onClick={() => setLocation(`/services/${nextService.id}`)} className="group flex flex-col items-end gap-2 hover:bg-white/5 p-6 rounded-3xl transition-colors w-full sm:w-1/2 text-right border border-transparent hover:border-white/10">
+                        <span className="text-sm font-mono text-white/50 tracking-widest uppercase flex items-center gap-2">
+                            Next Protocol
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                        <span className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors">{nextService.title}</span>
+                    </button>
+                </div>
             </div>
         </div>
     );
