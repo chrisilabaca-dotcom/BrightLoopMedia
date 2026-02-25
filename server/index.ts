@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express, { type Request, type Response, type NextFunction } from "express";
 import { createServer as createViteServer, type ViteDevServer } from "vite";
 import { registerRoutes } from "./routes";

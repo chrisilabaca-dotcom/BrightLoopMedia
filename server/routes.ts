@@ -169,7 +169,7 @@ ${inquiryData.message}
             res.status(200).json({ success: true, message: "Inquiry saved successfully." });
         } catch (error) {
             console.error("Pipeline Error:", error);
-            res.status(500).json({ error: "Internal server error during inquiry processing." });
+            res.status(500).json({ error: "Internal  error during inquiry processing." });
         }
     });
 
@@ -182,11 +182,13 @@ ${inquiryData.message}
                 return res.status(400).json({ error: "Invalid messages array." });
             }
 
-            const apiKey = process.env.GEMINI_API_KEY;
+            // Dynamically access the environment variable to prevent bundlers from statically stripping it
+            const envKey = "GEMINI_API_KEY";
+            const apiKey = process.env[envKey] || process.env.GEMINI_API_KEY;
 
             // If the key is missing or is the default placeholder, fallback to a cinematic mock response indicating the system is ready.
-            if (!apiKey || apiKey.includes("placeholder")) {
-                console.log("Mocking AI response due to placeholder API key.");
+            if (!apiKey || apiKey.includes("placeholder") || apiKey === "your_api_key_here") {
+                console.log("Mocking AI response due to placeholder or missing API key.");
                 // Simulate network delay for realism
                 await new Promise(resolve => setTimeout(resolve, 1500));
 
@@ -210,9 +212,9 @@ ${inquiryData.message}
                 parts: [{ text: msg.content }]
             }));
 
-            // Fallback to gemini-1.5-flash since the 8b string varies by API version.
+            // Upgrade to gemini-2.0-flash since 1.5 is failing on v1beta endpoint.
             const response = await ai.models.generateContent({
-                model: "gemini-1.5-flash",
+                model: "gemini-2.0-flash",
                 contents: contents,
                 config: {
                     systemInstruction: SYSTEM_PROMPT,
