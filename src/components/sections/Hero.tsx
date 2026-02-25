@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { MagneticButton } from "../ui/MagneticButton";
 
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
@@ -82,15 +83,19 @@ export function Hero() {
 
                 {/* Glassmorphism Actions */}
                 <div className="hero-text-line flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a href="/contact" className="group relative px-8 py-4 rounded-full bg-white text-black font-semibold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] flex items-center gap-2">
-                        <span className="relative z-10">Start a Project</span>
-                        <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-white via-blue-100 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </a>
+                    <MagneticButton>
+                        <a href="/contact" className="hover-wobble-btn group relative px-8 py-4 rounded-full bg-white text-black font-semibold text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] flex items-center gap-2">
+                            <span className="relative z-10">Start a Project</span>
+                            <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-white via-blue-100 to-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </a>
+                    </MagneticButton>
 
-                    <a href="#services" className="px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 backdrop-blur-xl hover:bg-white/10 hover:border-white/20 transition-all">
-                        Explore the Tech
-                    </a>
+                    <MagneticButton>
+                        <a href="#services" className="hover-wobble-btn px-8 py-4 rounded-full bg-white/5 text-white font-medium border border-white/10 backdrop-blur-xl hover:bg-white/10 hover:border-white/20 transition-all">
+                            Explore the Tech
+                        </a>
+                    </MagneticButton>
                 </div>
             </div>
 

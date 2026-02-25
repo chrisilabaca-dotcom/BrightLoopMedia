@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { MagneticButton } from "../ui/MagneticButton";
 
 export function Navbar() {
 
@@ -17,12 +18,11 @@ export function Navbar() {
                 <Link href="/how-it-works" className="hover:text-cyan-400 transition-colors">
                     How it Works
                 </Link>
-                <Link href="/about" className="hover:text-cyan-400 transition-colors">
-                    About
-                </Link>
-                <Link href="/contact" className="bg-white text-black px-5 py-2 rounded-full font-bold hover:bg-cyan-400 transition-colors ml-4 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                    Enquire
-                </Link>
+                <MagneticButton className="ml-4">
+                    <Link href="/contact" className="bg-white text-black px-5 py-2 rounded-full font-bold hover:bg-cyan-400 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.2)] hover-wobble-btn flex items-center justify-center">
+                        Enquire
+                    </Link>
+                </MagneticButton>
             </div>
         </nav>
     );
