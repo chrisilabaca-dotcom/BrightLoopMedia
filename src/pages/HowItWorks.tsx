@@ -52,7 +52,7 @@ export function HowItWorks() {
             <SEO
                 title="How It Works | Our Delivery Process | Bright Loop Media"
                 url="https://brightloop.co.uk/how-it-works"
-                description="See how Bright Loop Media plans, builds, launches, and supports practical digital systems."
+                description="Learn about our streamlined, 4-step delivery process. From discovery to handover, see how Bright Loop Media builds practical digital systems quickly and transparently."
             />
 
             {/* Custom Background Splashes for Personality (Purple/Magenta tone to contrast the Cyan) */}

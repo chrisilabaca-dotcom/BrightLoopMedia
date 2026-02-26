@@ -3,7 +3,7 @@ import { db } from "./db";
 import { insertInquirySchema, inquiries } from "../shared/schema";
 import { Resend } from "resend";
 import { google } from "googleapis";
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 import { siteData } from "../src/content/site";
 
 // Prepare the system prompt from the Knowledge Base
@@ -71,8 +71,8 @@ export function registerRoutes(app: Express) {
     // --- Debug Endpoint ---
     app.get("/api/debug", (req, res) => {
         res.json({
-            hasGeminiKey: !!process.env.GEMINI_API_KEY,
-            keyLength: process.env.GEMINI_API_KEY?.length || 0,
+            hasOpenAIKey: !!process.env.OPENAI_API_KEY,
+            keyLength: process.env.OPENAI_API_KEY?.length || 0,
             hasResendKey: !!process.env.RESEND_API_KEY,
             nodeEnv: process.env.NODE_ENV
         });
@@ -182,21 +182,19 @@ ${inquiryData.message}
                 return res.status(400).json({ error: "Invalid messages array." });
             }
 
-            // Dynamically access the environment variable to prevent bundlers from statically stripping it
-            const envKey = "GEMINI_API_KEY";
-            const apiKey = process.env[envKey] || process.env.GEMINI_API_KEY;
+            const apiKey = process.env.OPENAI_API_KEY;
 
             // If the key is missing or is the default placeholder, fallback to a cinematic mock response indicating the system is ready.
-            if (!apiKey || apiKey.includes("placeholder") || apiKey === "your_api_key_here") {
-                console.log("Mocking AI response due to placeholder or missing API key.");
+            if (!apiKey || apiKey.includes("placeholder")) {
+                console.log("Mocking AI response due to placeholder API key.");
                 // Simulate network delay for realism
                 await new Promise(resolve => setTimeout(resolve, 1500));
 
                 const lastMessage = messages[messages.length - 1].content.toLowerCase();
-                let mockReply = "I am operating in highly secured mock mode without an active neural link (API key). But make no mistake, my core protocols are fully intact. Once Chris connects my Gemini brain, I will synthesize your enquiries at lightspeed. What else would you like to know about Bright Loop's architecture?";
+                let mockReply = "I am operating in highly secured mock mode without an active neural link (API key). But make no mistake, my core protocols are fully intact. Once Chris connects my OpenAI brain, I will synthesize your enquiries at lightspeed. What else would you like to know about Bright Loop's architecture?";
 
                 if (lastMessage.includes("package") || lastMessage.includes("pricing")) {
-                    mockReply = "Ah, you're asking about our elite packages. Our Managed Sprints offer a fixed setup fee and scalable monthly support. It's built for founders who value outcomes over hours. (Note: Neural link disconnected. Awaiting GEMINI_API_KEY to access full package matrices.)";
+                    mockReply = "Ah, you're asking about our elite packages. Our Managed Sprints offer a fixed setup fee and scalable monthly support. It's built for founders who value outcomes over hours. (Note: Neural link disconnected. Awaiting OPENAI_API_KEY to access full package matrices.)";
                 } else if (lastMessage.includes("hello")) {
                     mockReply = "Greetings. I am HelloFlint. I am currently running on a constrained neural pathway (Mock Mode), but my aesthetic and function are undeniable. How can I streamline your digital systems today?";
                 }
@@ -204,35 +202,37 @@ ${inquiryData.message}
                 return res.status(200).json({ reply: mockReply });
             }
 
-            const ai = new GoogleGenAI({ apiKey: apiKey });
+            const openai = new OpenAI({ apiKey });
 
-            // Format messages for Gemini
-            const contents = messages.map(msg => ({
-                role: msg.role === 'assistant' ? 'model' : 'user',
-                parts: [{ text: msg.content }]
+            // Format messages for OpenAI
+            const formattedMessages: Array<{ role: 'system' | 'user' | 'assistant', content: string }> = messages.map((msg: { role: string, content: string }) => ({
+                role: msg.role === 'assistant' ? 'assistant' : 'user',
+                content: msg.content
             }));
 
-            // Upgrade to gemini-2.0-flash since 1.5 is failing on v1beta endpoint.
-            const response = await ai.models.generateContent({
-                model: "gemini-2.0-flash",
-                contents: contents,
-                config: {
-                    systemInstruction: SYSTEM_PROMPT,
-                    temperature: 0.7,
-                }
+            // Prepend system prompt
+            formattedMessages.unshift({ role: "system", content: SYSTEM_PROMPT });
+
+            const response = await openai.chat.completions.create({
+                model: "gpt-4o-mini",
+                messages: formattedMessages,
+                temperature: 0.7,
             });
 
-            res.status(200).json({ reply: response.text });
-        } catch (error: any) {
-            console.error("Gemini Error:", error);
+            const replyText = response.choices[0]?.message?.content || "I am currently unable to generate a response. Please try again later.";
+            res.status(200).json({ reply: replyText });
+        } catch (error: unknown) {
+            console.error("OpenAI Error:", error);
 
             // Check for Rate Limit 429
-            if (error?.message?.includes("429") || error?.status === "RESOURCE_EXHAUSTED") {
-                return res.status(200).json({ reply: "My quantum core is currently recharging (Google API Rate Limit Exceeded). Please try again in about 60 seconds, or connect a billing account to my neural link for unlimited processing." });
+            const err = error as Record<string, unknown>;
+            if (err?.status === 429) {
+                return res.status(200).json({ reply: "My quantum core is currently recharging (OpenAI API Rate Limit Exceeded). Please try again in about 60 seconds, or connect a billing account to my neural link for unlimited processing." });
             }
 
             // Even if it fails (e.g. invalid key), fail gracefully with personality
-            res.status(200).json({ reply: `System Error Detected: My quantum core specifically rejected that request (${error.message || 'Authentication error'}). Please ensure my GEMINI_API_KEY is correctly configured in my environment.` });
+            const errorMessage = error instanceof Error ? error.message : 'Authentication error';
+            res.status(200).json({ reply: `System Error Detected: My quantum core specifically rejected that request (${errorMessage}). Please ensure my OPENAI_API_KEY is correctly configured in my environment.` });
         }
     });
 }

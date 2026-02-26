@@ -14,22 +14,23 @@ export function Service() {
     const [, setLocation] = useLocation();
     const containerRef = useRef<HTMLDivElement>(null);
 
-    if (!match || !params) return null;
-
-    const service = siteData.services.find(s => s.id === params.id) as any;
-
-    // If the service is not found, or it's helloflint (which should be external), redirect to home
-    if (!service || service.id === "helloflint") {
-        setLocation("/");
-        return null;
-    }
+    const service = params ? siteData.services.find(s => s.id === params.id) : undefined;
+    const isValid = match && service && service.id !== "helloflint";
 
     const validServices = siteData.services.filter(s => s.id !== "helloflint");
-    const currentIndex = validServices.findIndex(s => s.id === params.id);
+    const currentIndex = isValid ? validServices.findIndex(s => s.id === service.id) : 0;
     const prevService = validServices[(currentIndex - 1 + validServices.length) % validServices.length];
     const nextService = validServices[(currentIndex + 1) % validServices.length];
 
     useEffect(() => {
+        if (typeof window !== "undefined" && !isValid) {
+            setLocation("/");
+        }
+    }, [isValid, setLocation]);
+
+    useEffect(() => {
+        if (!isValid) return;
+
         const ctx = gsap.context(() => {
             // Animate headers
             gsap.from(".hero-text", {
@@ -84,7 +85,9 @@ export function Service() {
             });
         }, containerRef);
         return () => ctx.revert();
-    }, [service.id]);
+    }, [isValid, service?.id]);
+
+    if (!isValid) return null;
 
     return (
         <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, left: 0, behavior: "instant" })}>

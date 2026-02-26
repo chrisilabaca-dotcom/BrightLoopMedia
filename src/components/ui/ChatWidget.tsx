@@ -63,6 +63,7 @@ export function ChatWidget() {
             <button
                 id="chat-widget-trigger"
                 onClick={() => setIsOpen(true)}
+                aria-label="Open chat"
                 className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-void border border-white/20 text-cyan-400 flex items-center justify-center shadow-[0_0_30px_rgba(34,211,238,0.3)] transition-all duration-300 hover:scale-110 hover:shadow-[0_0_40px_rgba(34,211,238,0.5)] ${isOpen ? "scale-0 opacity-0 pointer-events-none" : "scale-100 opacity-100"
                     }`}
             >
@@ -87,6 +88,7 @@ export function ChatWidget() {
                     </div>
                     <button
                         onClick={() => setIsOpen(false)}
+                        aria-label="Close chat"
                         className="p-2 text-white/50 hover:text-white transition-colors rounded-full hover:bg-white/10"
                     >
                         <X size={20} />
@@ -135,6 +137,7 @@ export function ChatWidget() {
                         <button
                             type="submit"
                             disabled={!input.trim() || isLoading}
+                            aria-label="Send message"
                             className="absolute right-2 p-2 text-cyan-400 hover:text-cyan-300 disabled:opacity-50 disabled:hover:text-cyan-400 transition-colors"
                         >
                             <Send size={18} />

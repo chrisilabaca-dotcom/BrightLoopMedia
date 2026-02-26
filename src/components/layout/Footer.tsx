@@ -10,18 +10,16 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="space-y-6">
-                        <Link href="/">
-                            <a className="text-2xl font-bold tracking-tighter text-white inline-flex items-center gap-2">
-                                <div className="w-6 h-6 rounded-full bg-cyan-400" />
-                                {siteData.identity.name}
-                            </a>
+                        <Link href="/" className="text-2xl font-bold tracking-tighter text-white inline-flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-cyan-400" />
+                            {siteData.identity.name}
                         </Link>
                         <p className="text-white/60 text-sm leading-relaxed">
                             {siteData.identity.oneLiner}
                         </p>
-                        <div className="space-y-2">
-                            <a href="mailto:brightloopuk@gmail.com" className="block text-cyan-400 hover:text-cyan-300 text-sm transition-colors">brightloopuk@gmail.com</a>
-                            <a href="tel:07859986848" className="block text-white/80 hover:text-white text-sm transition-colors">07859 986848</a>
+                        <div className="space-y-3 mt-4">
+                            <a href="mailto:brightloopuk@gmail.com" className="block py-2 text-cyan-400 hover:text-cyan-300 text-sm transition-colors">brightloopuk@gmail.com</a>
+                            <a href="tel:07859986848" className="block py-2 text-white/80 hover:text-white text-sm transition-colors">07859 986848</a>
                         </div>
                     </div>
 
@@ -31,14 +29,14 @@ export function Footer() {
                         <ul className="space-y-3">
                             {siteData.services.slice(0, 5).map(service => (
                                 <li key={service.id}>
-                                    <Link href={`/services/${service.id}`}>
-                                        <a className="text-sm text-white/60 hover:text-cyan-400 transition-colors">{service.title}</a>
+                                    <Link href={`/services/${service.id}`} className="text-sm text-white/60 hover:text-cyan-400 transition-colors">
+                                        {service.title}
                                     </Link>
                                 </li>
                             ))}
                             <li>
-                                <Link href="/services">
-                                    <a className="text-sm text-cyan-400/80 hover:text-cyan-400 transition-colors">View all services →</a>
+                                <Link href="/services" className="text-sm text-cyan-400/80 hover:text-cyan-400 transition-colors">
+                                    View all services →
                                 </Link>
                             </li>
                         </ul>
@@ -48,10 +46,10 @@ export function Footer() {
                     <div>
                         <h4 className="text-white font-semibold mb-6">Company</h4>
                         <ul className="space-y-3">
-                            <li><Link href="/about"><a className="text-sm text-white/60 hover:text-cyan-400 transition-colors">About</a></Link></li>
-                            <li><Link href="/how-it-works"><a className="text-sm text-white/60 hover:text-cyan-400 transition-colors">How It Works</a></Link></li>
-                            <li><Link href="/packages"><a className="text-sm text-white/60 hover:text-cyan-400 transition-colors">Packages</a></Link></li>
-                            <li><Link href="/contact"><a className="text-sm text-white/60 hover:text-cyan-400 transition-colors">Contact</a></Link></li>
+                            <li><Link href="/about" className="text-sm text-white/60 hover:text-cyan-400 transition-colors">About</Link></li>
+                            <li><Link href="/how-it-works" className="text-sm text-white/60 hover:text-cyan-400 transition-colors">How It Works</Link></li>
+                            <li><Link href="/packages" className="text-sm text-white/60 hover:text-cyan-400 transition-colors">Packages</Link></li>
+                            <li><Link href="/contact" className="text-sm text-white/60 hover:text-cyan-400 transition-colors">Contact</Link></li>
                         </ul>
                     </div>
 
@@ -73,16 +71,16 @@ export function Footer() {
                             </li>
                         </ul>
                         <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/5 inline-block">
-                            <p className="text-xs text-white/40">Registered in England & Wales</p>
+                            <p className="text-xs text-white/60">Registered in England & Wales</p>
                         </div>
                     </div>
                 </div>
 
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-white/40 text-xs">
+                    <p className="text-white/60 text-xs">
                         © {new Date().getFullYear()} {siteData.identity.name}. All rights reserved.
                     </p>
-                    <p className="text-white/40 text-xs">
+                    <p className="text-white/60 text-xs">
                         Built on the Wirral. Working with clients across the UK.
                     </p>
                 </div>

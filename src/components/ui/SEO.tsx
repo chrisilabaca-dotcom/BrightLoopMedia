@@ -6,14 +6,16 @@ export function SEO({ title, description, url }: { title: string, description?: 
 
     const structuredData = {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
+        "@type": ["LocalBusiness", "ProfessionalService"],
         "name": siteData.identity.name,
         "description": desc,
         "url": url,
-        "telephone": "", // Add phone if provided
+        "telephone": "07859986848",
+        "email": "brightloopuk@gmail.com",
         "priceRange": "££",
         "address": {
             "@type": "PostalAddress",
+            "addressLocality": "Wirral",
             "addressRegion": "Merseyside",
             "addressCountry": "UK"
         },
@@ -41,9 +43,13 @@ export function SEO({ title, description, url }: { title: string, description?: 
 
             {/* Open Graph / Twitter */}
             <meta property="og:type" content="website" />
+            <meta property="og:site_name" content={siteData.identity.name} />
             <meta property="og:title" content={fullTitle} />
             <meta property="og:description" content={desc} />
             <meta property="og:url" content={url} />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={fullTitle} />
+            <meta name="twitter:description" content={desc} />
 
             {/* JSON-LD */}
             <script

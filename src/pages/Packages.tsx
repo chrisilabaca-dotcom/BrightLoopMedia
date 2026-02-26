@@ -30,7 +30,7 @@ export function Packages() {
             <SEO
                 title="Website Packages & Pricing | Bright Loop Media"
                 url="https://brightloop.co.uk/packages"
-                description="Compare our website and digital systems packages. Fixed pricing, clear scope, no hidden costs."
+                description="Compare our fixed-price website and digital systems packages. Transparent pricing, clear scope, and ongoing managed hosting with no hidden costs."
             />
 
             {/* Background Effects */}
@@ -129,36 +129,84 @@ export function Packages() {
             <Pricing />
 
             <div className="container mx-auto px-6 relative z-10 max-w-5xl mt-32">
-                <div className="grid md:grid-cols-2 gap-12">
-                    {/* Add-ons */}
-                    <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10 backdrop-blur-xl">
-                        <h3 className="text-3xl font-bold mb-6 text-white tracking-tight">Add-ons</h3>
-                        <p className="text-white/70 mb-8">Enhance your package with additional services. All add-ons can be combined with any website package.</p>
+                <div className="grid md:grid-cols-2 gap-12 mb-12">
+                    {/* Left Card: Growth Upgrades */}
+                    <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10 backdrop-blur-xl flex flex-col h-full">
+                        <h3 className="text-3xl font-bold mb-4 text-white tracking-tight">Growth Upgrades</h3>
+                        <p className="text-white/70 mb-8 leading-relaxed">Enhance your package with additional systems designed to generate leads, automate admin and increase conversions.</p>
 
-                        <div className="space-y-6">
-                            <div className="bg-[#050508]/60 p-6 rounded-2xl border border-white/5">
-                                <h4 className="text-lg font-bold text-cyan-400 mb-2">Booking & Scheduling</h4>
-                                <p className="text-white/60 text-sm">Third-party booking subscriptions are billed to the client at cost.</p>
+                        <div className="space-y-4 flex-grow">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">Google Business Profile Setup</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£249 setup<br /><span className="text-white/50 text-xs">Ongoing management from £79/mo</span></span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">Chat Widget & Lead Capture</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£199 setup<br /><span className="text-white/50 text-xs">£49/mo</span></span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">AI Enquiry Triage</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£495 setup<br /><span className="text-white/50 text-xs">£149/mo</span></span>
+                            </div>
+                            <div className="py-4 border-b border-white/10 space-y-2">
+                                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center gap-2">
+                                    <span className="text-white/80 font-medium">Online Booking System</span>
+                                    <span className="font-mono text-cyan-400 text-sm sm:text-right">£295 setup<br /><span className="text-white/50 text-xs">£39/mo</span></span>
+                                </div>
+                                <p className="text-white/50 text-xs italic leading-relaxed">Optional payment/deposit integration £149 setup. Note: Third party booking subscriptions billed directly at cost.</p>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">Automation Discovery Session</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£295 one off</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">Automation Build Pack</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£795 setup</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">AI Audit & Roadmap</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£595 one off</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">AI Implementation Sprint</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">From £1,995</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Out of Scope */}
-                    <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10 backdrop-blur-xl">
-                        <h3 className="text-3xl font-bold mb-6 text-white tracking-tight">Out of Scope</h3>
-                        <p className="text-white/70 mb-8">Need something beyond your package? Additional work is available at these standard rates.</p>
+                    {/* Right Card: Additional Development */}
+                    <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10 backdrop-blur-xl flex flex-col h-full">
+                        <h3 className="text-3xl font-bold mb-4 text-white tracking-tight">Additional Development</h3>
+                        <p className="text-white/70 mb-8 leading-relaxed">Need something outside your selected package? Additional work is billed at the following standard rates.</p>
 
-                        <div className="space-y-4">
-                            <div className="flex justify-between items-center p-4 border-b border-white/10">
-                                <span className="text-white/80">Standard build & automation time</span>
-                                <span className="font-mono text-cyan-400">POA</span>
+                        <div className="space-y-4 flex-grow">
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">Standard Build & Automation Time</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£75/hr</span>
                             </div>
-                            <div className="flex justify-between items-center p-4 border-b border-white/10">
-                                <span className="text-white/80">Content upload & formatting</span>
-                                <span className="font-mono text-cyan-400">POA</span>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">Content Upload & Formatting</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£50/hr</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">Large Scale Automation Projects</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">Quoted based on scope</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">AI Enablement & Automation Retainer</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£399/mo</span>
+                            </div>
+                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 border-b border-white/10 gap-2">
+                                <span className="text-white/80 font-medium">AI Strategy & Ongoing Advisory</span>
+                                <span className="font-mono text-cyan-400 text-sm sm:text-right">£499/mo</span>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {/* Footer Text */}
+                <div className="text-center p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-xl">
+                    <p className="text-white/80 italic font-medium">All packages include clearly defined scope. Any additional work is discussed and approved before implementation.</p>
                 </div>
             </div>
 

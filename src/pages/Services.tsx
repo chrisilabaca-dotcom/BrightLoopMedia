@@ -7,7 +7,7 @@ export function Services() {
             <SEO
                 title="Our Services | Websites, Enquiry Handling, Automations | Bright Loop Media"
                 url="https://brightloop.co.uk/services"
-                description="Web development, enquiry handling, booking systems, automations, AI consultancy, and Google presence services for UK small businesses."
+                description="Explore our web design, enquiry handling, booking systems, automations, and AI consultancy services designed specifically for UK small businesses."
             />
 
             {/* Background Effects */}
