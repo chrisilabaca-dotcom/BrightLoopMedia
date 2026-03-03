@@ -1,0 +1,106 @@
+{
+  "title": "Hybrid 3 Agent Workflow — Google Antigravity + Claude Code + Gemini",
+  "source": "https://youtube.com/shorts/T2bd1kGEISo",
+  "summary": "A multi-agent coding loop that chains Claude Code (primary builder), Google Antigravity (web/external search layer), and Gemini (search/context expansion) to extend usage limits, conserve credits, catch bugs automatically, reduce manual approval overhead, and improve development speed.",
+  "architecture": {
+    "agent_1": {
+      "name": "Claude Code",
+      "role": "Primary Builder",
+      "responsibilities": [
+        "Planning",
+        "Code generation",
+        "Refactoring",
+        "File edits",
+        "Architecture decisions"
+      ],
+      "interaction_model": "Proposes changes, presents plan, offers approval modes (auto-accept, manual approve, keep planning)"
+    },
+    "agent_2": {
+      "name": "Antigravity Agent",
+      "role": "Web + External Search Layer",
+      "responsibilities": [
+        "Web context retrieval",
+        "Documentation lookup",
+        "Latest library discovery",
+        "Implementation validation"
+      ],
+      "delegation": "Delegates search to Gemini for live web retrieval"
+    },
+    "agent_3": {
+      "name": "Gemini",
+      "role": "Search + Context Expansion",
+      "responsibilities": [
+        "Web search",
+        "Documentation lookup",
+        "External validation",
+        "Fact checking",
+        "Library comparison"
+      ],
+      "purpose": "Prevents Claude from hallucinating outdated implementations"
+    }
+  },
+  "workflow_loop": {
+    "step_1": {
+      "phase": "Planning",
+      "agent": "Claude Code",
+      "actions": [
+        "Read repository",
+        "Generate implementation plan",
+        "List benefits",
+        "Suggest migration path",
+        "Suggest architecture"
+      ],
+      "example_outputs": [
+        "No external dependencies",
+        "Faster setup",
+        "Easy migration path",
+        "Same feature set",
+        "Better dev experience",
+        "Cost $0"
+      ]
+    },
+    "step_2": {
+      "phase": "Validation",
+      "agent": "Antigravity + Gemini",
+      "actions": [
+        "Search web for latest docs and libraries",
+        "Validate proposed implementation against current best practices",
+        "Fact-check architecture decisions"
+      ]
+    },
+    "step_3": {
+      "phase": "Execution",
+      "agent": "Claude Code",
+      "actions": [
+        "Execute plan with validated context",
+        "Generate code",
+        "Apply file edits",
+        "Refactor as needed"
+      ]
+    },
+    "step_4": {
+      "phase": "Review Loop",
+      "agent": "All three",
+      "actions": [
+        "Catch bugs automatically",
+        "Validate outputs",
+        "Loop back to planning if needed"
+      ]
+    }
+  },
+  "benefits": [
+    "Extends usage limits across agents",
+    "Conserves credits by delegating search to Gemini",
+    "Catches bugs automatically via multi-agent review",
+    "Reduces manual approval overhead",
+    "Improves development speed",
+    "Prevents hallucinated/outdated implementations"
+  ],
+  "tools_mentioned": [
+    "Claude Code",
+    "Google Antigravity",
+    "Gemini"
+  ],
+  "target_audience": "Developers using AI-assisted coding workflows who want to maximise output while minimising cost and errors",
+  "key_takeaway": "By chaining three specialised agents — a builder (Claude), a search layer (Antigravity), and a context engine (Gemini) — you create a self-correcting development loop that is faster, cheaper, and more reliable than any single agent alone."
+}
