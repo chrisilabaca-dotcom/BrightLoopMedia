@@ -8,7 +8,8 @@
     "build": "vite build --outDir dist/client && vite build --ssr src/entry-server.tsx --outDir dist/server && tsx scripts/prerender.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "NODE_ENV=production tsx server/index.ts",
-    "start": "NODE_ENV=production tsx server/index.ts"
+    "start": "NODE_ENV=production tsx server/index.ts",
+    "scrape-workflow": "tsx scripts/scrape-video-workflow.ts"
   },
   "dependencies": {
     "@google/genai": "^1.42.0",
@@ -33,6 +34,7 @@
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",
     "wouter": "^3.9.0",
+    "youtube-transcript": "^1.2.1",
     "zod": "^4.3.6"
   },
   "devDependencies": {
