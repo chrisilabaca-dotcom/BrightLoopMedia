@@ -1,11 +1,29 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { MagneticButton } from "../ui/MagneticButton";
+
+const ROTATING_WORDS = [
+    "websites",
+    "AI systems",
+    "automations",
+    "booking platforms",
+    "Google profiles",
+];
 
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const orbRef = useRef<HTMLDivElement>(null);
+    const [wordIndex, setWordIndex] = useState(0);
+
+    // Cycle through rotating words
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setWordIndex((prev) => (prev + 1) % ROTATING_WORDS.length);
+        }, 1500);
+        return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {
         if (!containerRef.current || !orbRef.current) return;
@@ -74,9 +92,30 @@ export function Hero() {
 
                 <div className="hero-text-line mt-12 mb-16 max-w-2xl mx-auto space-y-4">
                     <p className="text-xl md:text-2xl text-white/70 font-light leading-relaxed">
-                        We build high-performance websites and AI systems that bring you serious enquiries.
+                        We build high-performance digital systems that bring you serious enquiries.
                     </p>
-                    <p className="text-lg text-cyan-200/80 font-mono tracking-wider">
+
+                    {/* Rotating word — clean block element */}
+                    <div className="flex items-center justify-center gap-3 text-lg text-cyan-200/60 font-mono tracking-wider">
+                        <span className="text-white/30">{'>'}</span>
+                        <span>Currently shipping:</span>
+                        <span className="relative h-7 overflow-hidden w-48">
+                            <AnimatePresence mode="wait">
+                                <motion.span
+                                    key={ROTATING_WORDS[wordIndex]}
+                                    initial={{ y: 24, opacity: 0, filter: "blur(4px)" }}
+                                    animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                                    exit={{ y: -24, opacity: 0, filter: "blur(4px)" }}
+                                    transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                    className="absolute left-0 text-cyan-400 font-semibold whitespace-nowrap"
+                                >
+                                    {ROTATING_WORDS[wordIndex]}
+                                </motion.span>
+                            </AnimatePresence>
+                        </span>
+                    </div>
+
+                    <p className="text-lg text-cyan-200/80 font-mono tracking-wider pt-2">
                         [ FIXED PRICE. NO WAFFLE. ]
                     </p>
                 </div>

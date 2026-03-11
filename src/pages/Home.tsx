@@ -1,4 +1,5 @@
 import { Hero } from "../components/sections/Hero";
+import { TechMarquee } from "../components/sections/TechMarquee";
 import { ServicesDeck } from "../components/sections/ServicesDeck";
 import { Pricing } from "../components/sections/Pricing";
 import { SEO } from "../components/ui/SEO";
@@ -13,6 +14,7 @@ export function Home() {
             />
 
             <Hero />
+            <TechMarquee />
             <ServicesDeck />
             <Pricing />
         </div>

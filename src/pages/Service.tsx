@@ -1,6 +1,7 @@
 import { useRoute, useLocation } from "wouter";
 import { siteData } from "../content/site";
 import { SEO } from "../components/ui/SEO";
+import { SERVICE_IMAGES } from "../components/sections/ServicesDeck";
 import { ArrowLeft, ArrowRight, Zap } from "lucide-react";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -111,10 +112,22 @@ export function Service() {
                 <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-purple-600/15 rounded-full blur-[120px] pointer-events-none" />
                 <div className="absolute bottom-1/4 right-0 w-[900px] h-[900px] bg-pink-500/10 rounded-full blur-[160px] pointer-events-none" />
 
+                {/* Full-width Hero Banner Image — edge to edge */}
+                {SERVICE_IMAGES[service.id] && (
+                    <div className="hero-text relative w-full overflow-hidden -mt-32 bg-[#050508]">
+                        <img
+                            src={SERVICE_IMAGES[service.id]}
+                            alt={service.title}
+                            className="w-full h-[400px] md:h-[500px] lg:h-[600px] object-contain mx-auto"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#030305] via-transparent to-[#030305]/40 pointer-events-none" />
+                    </div>
+                )}
+
                 <div className="container mx-auto px-6 relative z-10 max-w-5xl">
                     <button
                         onClick={() => setLocation("/")}
-                        className="group flex items-center gap-2 text-cyan-400 font-mono text-sm tracking-widest uppercase mb-12 hover:text-cyan-300 transition-colors"
+                        className="group flex items-center gap-2 text-cyan-400 font-mono text-sm tracking-widest uppercase mb-8 mt-8 hover:text-cyan-300 transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                         Back to Protocol
