@@ -12,6 +12,8 @@ const ROTATING_WORDS = [
     "Google profiles",
 ];
 
+const IS_TOUCH = typeof window !== "undefined" && window.matchMedia("(hover: none)").matches;
+
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
     const orbRef = useRef<HTMLDivElement>(null);
@@ -26,17 +28,19 @@ export function Hero() {
     }, []);
 
     useEffect(() => {
-        if (!containerRef.current || !orbRef.current) return;
+        if (!containerRef.current) return;
 
         const ctx = gsap.context(() => {
-            // Mouse following orb
-            const xTo = gsap.quickTo(orbRef.current, "x", { duration: 1.5, ease: "power3" });
-            const yTo = gsap.quickTo(orbRef.current, "y", { duration: 1.5, ease: "power3" });
+            // Mouse following orb — desktop only (no mouse on touch devices)
+            if (!IS_TOUCH && orbRef.current) {
+                const xTo = gsap.quickTo(orbRef.current, "x", { duration: 1.5, ease: "power3" });
+                const yTo = gsap.quickTo(orbRef.current, "y", { duration: 1.5, ease: "power3" });
 
-            window.addEventListener("mousemove", (e) => {
-                xTo(e.clientX - window.innerWidth / 2);
-                yTo(e.clientY - window.innerHeight / 2);
-            });
+                window.addEventListener("mousemove", (e) => {
+                    xTo(e.clientX - window.innerWidth / 2);
+                    yTo(e.clientY - window.innerHeight / 2);
+                });
+            }
 
             // Entry animation
             gsap.from(".hero-text-line", {
@@ -65,13 +69,15 @@ export function Hero() {
             {/* 2026 Grid Background */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none" />
 
-            {/* Glowing Mouse Follower Orb */}
-            <div ref={orbRef} className="absolute left-1/2 top-1/2 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+            {/* Glowing Mouse Follower Orb — desktop only */}
+            {!IS_TOUCH && (
+                <div ref={orbRef} className="absolute left-1/2 top-1/2 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[120px] mix-blend-screen pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+            )}
 
-            {/* Deep intense background splashes */}
-            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-cyan-500/15 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-pink-500/15 rounded-full blur-[140px] pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] bg-purple-600/10 rounded-full blur-[160px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
+            {/* Background splashes — reduced blur on mobile for GPU performance */}
+            <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-cyan-500/15 rounded-full blur-[60px] md:blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-pink-500/15 rounded-full blur-[60px] md:blur-[140px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] md:w-[800px] md:h-[800px] bg-purple-600/10 rounded-full blur-[60px] md:blur-[160px] pointer-events-none -translate-x-1/2 -translate-y-1/2" />
 
             <div className="z-10 px-6 container mx-auto mt-20 relative">
                 {/* Micro-badge */}

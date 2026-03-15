@@ -8,6 +8,13 @@ export function SiteLoader() {
     const [isComplete, setIsComplete] = useState(false);
 
     useEffect(() => {
+        // Skip loader on mobile — get straight to content
+        const isMobile = window.matchMedia("(hover: none)").matches;
+        if (isMobile) {
+            setIsComplete(true);
+            return;
+        }
+
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({
                 onComplete: () => setIsComplete(true)
@@ -18,40 +25,33 @@ export function SiteLoader() {
             gsap.set(".loader-element", { autoAlpha: 0, y: 20 });
             gsap.set(progressRef.current, { scaleX: 0, transformOrigin: "left center" });
 
-            // Entrance
+            // Entrance — snappier
             tl.to(".loader-element", {
                 autoAlpha: 1,
                 y: 0,
-                duration: 0.8,
-                stagger: 0.2,
+                duration: 0.4,
+                stagger: 0.1,
                 ease: "power3.out"
             });
 
-            // Progress bar
+            // Progress bar — fast sweep
             tl.to(progressRef.current, {
                 scaleX: 1,
-                duration: 1.5,
+                duration: 0.6,
                 ease: "power2.inOut"
-            }, "-=0.4");
+            }, "-=0.2");
 
-            // Text scramble effect (mock)
-            tl.to(textRef.current, {
-                text: "SYSTEM ONLINE",
-                duration: 0.5,
-                ease: "none"
-            });
-
-            // Exit sequence
+            // Exit sequence — no pause, immediate
             tl.to(".loader-element", {
                 autoAlpha: 0,
                 y: -20,
-                duration: 0.6,
-                stagger: 0.1,
+                duration: 0.3,
+                stagger: 0.05,
                 ease: "power3.in"
-            }, "+=0.3")
+            })
                 .to(loaderRef.current, {
                     autoAlpha: 0,
-                    duration: 0.8,
+                    duration: 0.4,
                     ease: "power2.inOut",
                     backdropFilter: "blur(0px)"
                 });

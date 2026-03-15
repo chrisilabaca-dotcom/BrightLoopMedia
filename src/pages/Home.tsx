@@ -1,8 +1,11 @@
+import { lazy, Suspense } from "react";
 import { Hero } from "../components/sections/Hero";
 import { TechMarquee } from "../components/sections/TechMarquee";
-import { ServicesDeck } from "../components/sections/ServicesDeck";
-import { Pricing } from "../components/sections/Pricing";
 import { SEO } from "../components/ui/SEO";
+
+// Below-fold sections — lazy loaded so they don't block initial paint
+const ServicesDeck = lazy(() => import("../components/sections/ServicesDeck").then(m => ({ default: m.ServicesDeck })));
+const Pricing = lazy(() => import("../components/sections/Pricing").then(m => ({ default: m.Pricing })));
 
 export function Home() {
     return (
@@ -15,8 +18,10 @@ export function Home() {
 
             <Hero />
             <TechMarquee />
-            <ServicesDeck />
-            <Pricing />
+            <Suspense fallback={<div className="min-h-screen bg-[#030305]" />}>
+                <ServicesDeck />
+                <Pricing />
+            </Suspense>
         </div>
     );
 }
